@@ -1,0 +1,85 @@
+global class UpdateAccountBatch implements Database.Batchable<sObject>, Database.Stateful{
+    String query;
+        
+    global Database.querylocator start(Database.BatchableContext BC){
+        
+        Query = 'Select id, Name, Accreditation_Date__c, Accreditation_Expiration__c, OwnerID, User_Email__c FROM Account WHERE Accreditation_Expiration__c != null AND Accreditation_Date__c != null';   
+        return Database.getQueryLocator(query);
+    }
+    
+    global void execute(Database.BatchableContext BC, List<account> scope){
+        List<Account> accList = new List<Account>();
+        List<String> expEmail = new List<String>();
+        
+        for(Expiration_Email__c exp :  [Select Email__c From Expiration_Email__c]){
+            expEmail.add(exp.Email__c);
+        }
+        
+        for(account s : scope){
+        
+            if(s.Accreditation_Expiration__c == '6 Months') {
+                
+                if(date.today() == s.Accreditation_Date__c.addMonths(5)) {
+                    accList.add(s);
+                    expEmail.add(s.User_Email__c);
+                }
+            }
+            if(s.Accreditation_Expiration__c == '1 Year') {
+                
+            if(date.today() == s.Accreditation_Date__c.addYears(1).addMonths(-1)) {
+                    accList.add(s);
+                    expEmail.add(s.User_Email__c);
+                }
+            }
+            if(s.Accreditation_Expiration__c == '2 Years') {
+                
+                if(date.today() == s.Accreditation_Date__c.addYears(2).addMonths(-1)) {
+                    accList.add(s);
+                    expEmail.add(s.User_Email__c);
+                }
+            }
+            if(s.Accreditation_Expiration__c == '3 Years') {
+                
+                if(date.today() == s.Accreditation_Date__c.addYears(3).addMonths(-1)) {
+                    accList.add(s);
+                    expEmail.add(s.User_Email__c);
+                }
+            }
+        }    
+        if(acclist.size() > 0) {
+            sendEmail(accList, expEmail);
+        }
+    }
+    
+    public static void sendEmail(List<Account> acc, List<String> emailAddress) {
+    Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+    Messaging.SendEmailResult [] mailResult;
+    List<String> toAddress;
+    String urlLink = '';
+    String StrName = '';
+    String StrID = '';
+    String RecipientName = '';
+    String emailTemp = '';
+    
+    for(Account accemail : acc) {
+        StrName = StrName + '<br/>' + accemail.Name;
+        StrID =  StrID + '<a href="'+URL.getSalesforceBaseUrl().toExternalForm()+'/'+accemail.ID+'">'+accemail.Name+'</a>' +'<br/>';
+    }
+    emailTemp = '<span style="font-family:arial; font-size:85%">Hi Sales,'+'<br/>'+'<br/>'+
+                        'Please see Account record/s below which are already due for Accreditation Expiration today'+'<br/>'+
+                        StrID+'<br/>'+'<br/>'+
+                        'Thank you,<br/>'+'Central Salesforce Team';
+    
+    toAddress =  emailAddress;
+    email.setToAddresses(toAddress);
+    email.setSubject('Accounts due for accreditation expiration');
+    email.setHtmlBody(emailTemp);
+    
+    mailResult = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
+    }
+    
+    global void finish(Database.BatchableContext BC){
+
+    }
+    
+}

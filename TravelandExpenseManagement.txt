@@ -1,0 +1,143 @@
+public with sharing class inlinecontroller {
+Public String theId{get;set;}
+Public string Airfare_Description_1{get;set;}
+Public string Ground_Transportation_Description_1{get;set;}
+Public string Conference_Registration_Description_1{get;set;}
+Public string Board_and_Lodging_Description_1{get;set;}
+Public string Meals_and_Tips_Description_1{get;set;}
+Public string Representation_Description_1{get;set;}
+Public string Miscellaneous_Description_1{get;set;}
+Public integer Airfare_DE_P_1{get;set;}
+Public integer Ground_Transportation_DE_P_1 {get;set;}
+Public integer Conference_Registration_Fees_DE_P_1 {get;set;}
+Public integer Board_and_Lodging_DE_P_1 {get;set;}
+Public integer Meals_and_Tips_DE_P_1 {get;set;}
+Public integer Representation_DE_P_1 {get;set;}
+Public integer Miscellaneous_DE_P_1 {get;set;}
+Public integer Airfare_DE_S_1{get;set;}
+Public integer Ground_Transportation_DE_S_1 {get;set;}
+Public integer Conference_Registration_Fees_DE_S_1 {get;set;}
+Public integer Board_and_Lodging_DE_S_1 {get;set;}
+Public integer Meals_and_Tips_DE_S_1 {get;set;}
+Public integer Representation_DE_S_1 {get;set;}
+Public integer Miscellaneous_DE_S_1 {get;set;}
+Public integer of_Days_Airfare_1 {get;set;}
+Public integer of_Days_Board_1 {get;set;}
+Public integer of_Days_Conference_1 {get;set;}
+Public integer of_Days_Ground_1 {get;set;}
+Public integer of_Days_Meals_1 {get;set;}
+Public integer of_Days_Miscellaneous_1 {get;set;}
+Public integer of_Days_Representation_1 {get;set;}
+//Section Two Fields
+Public string Airfare_Description_2{get;set;}
+Public string Ground_Transportation_Description_2{get;set;}
+Public string Conference_Registration_Description_2{get;set;}
+Public string Board_and_Lodging_Description_2{get;set;}
+Public string Meals_and_Tips_Description_2{get;set;}
+Public string Representation_Description_2{get;set;}
+Public string Miscellaneous_Description_2{get;set;}
+Public integer Airfare_DE_P_2{get;set;}
+Public integer Ground_Transportation_DE_P_2 {get;set;}
+Public integer Conference_Registration_Fees_DE_P_2 {get;set;}
+Public integer Board_and_Lodging_DE_P_2 {get;set;}
+Public integer Meals_and_Tips_DE_P_2 {get;set;}
+Public integer Representation_DE_P_2 {get;set;}
+Public integer Miscellaneous_DE_P_2 {get;set;}
+Public integer Airfare_DE_S_2{get;set;}
+Public integer Ground_Transportation_DE_S_2 {get;set;}
+Public integer Conference_Registration_Fees_DE_S_2 {get;set;}
+Public integer Board_and_Lodging_DE_S_2 {get;set;}
+Public integer Meals_and_Tips_DE_S_2 {get;set;}
+Public integer Representation_DE_S_2 {get;set;}
+Public integer Miscellaneous_DE_S_2 {get;set;}
+Public integer of_Days_Airfare_2 {get;set;}
+Public integer of_Days_Board_2 {get;set;}
+Public integer of_Days_Conference_2 {get;set;}
+Public integer of_Days_Ground_2 {get;set;}
+Public integer of_Days_Meals_2 {get;set;}
+Public integer of_Days_Miscellaneous_2 {get;set;}
+Public integer of_Days_Representation_2 {get;set;}
+Public Travel_and_Expense_Management__c temquery {get;set;}
+
+ApexPages.standardController m_sc = null;
+
+public inlinecontroller(ApexPages.StandardController controller) {  
+    theId = ApexPages.currentPage().getParameters().get('id');
+    m_sc = controller;
+    //Travel_and_Expense_Management__c temquery = new Travel_and_Expense_Management__c();
+        
+    if (theId != null) {
+        temquery = (Travel_and_Expense_Management__c) Utility.getObject('Travel_and_Expense_Management__c', theId);
+    } 
+}
+
+public PageReference inlinecontroller() {
+    return null;
+}
+
+public pagereference getPassMethod() {
+
+    temquery.Airfare_Description_1__c = Airfare_Description_1;
+    temquery.Ground_Transportation_Description_1__c = Ground_Transportation_Description_1;
+    temquery.Conference_Registration_Description_1__c = Conference_Registration_Description_1;
+    temquery.Board_and_Lodging_Description_1__c = Board_and_Lodging_Description_1;
+    temquery.Meals_and_Tips_Description_1__c = Meals_and_Tips_Description_1;
+    temquery.Representation_Description_1__c = Representation_Description_1;
+    temquery.Miscellaneous_Description_1__c = Miscellaneous_Description_1;
+    temquery.Airfare_DE_P_1__c = Airfare_DE_P_1;
+    temquery.Ground_Transportation_DE_P_1__c = Ground_Transportation_DE_P_1;
+    temquery.Conference_Registration_Fees_DE_P_1__c = Conference_Registration_Fees_DE_P_1;
+    temquery.Board_and_Lodging_DE_P_1__c = Board_and_Lodging_DE_P_1;
+    temquery.Meals_and_Tips_DE_P_1__c = Meals_and_Tips_DE_P_1;
+    temquery.Representation_DE_P_1__c = Representation_DE_P_1;
+    temquery.Miscellaneous_DE_P_1__c = Miscellaneous_DE_P_1;
+    temquery.Airfare_DE_S_1__c = Airfare_DE_S_1;
+    temquery.Ground_Transportation_DE_S_1__c = Ground_Transportation_DE_S_1;
+    temquery.Conference_Registration_Fees_DE_S_1__c = Conference_Registration_Fees_DE_S_1;
+    temquery.Board_and_Lodging_DE_S_1__c = Board_and_Lodging_DE_S_1;
+    temquery.Meals_and_Tips_DE_S_1__c = Meals_and_Tips_DE_S_1;
+    temquery.Representation_DE_S_1__c = Representation_DE_S_1;
+    temquery.Miscellaneous_DE_S_1__c = Miscellaneous_DE_S_1;
+    temquery.of_Days_Airfare_1__c = of_Days_Airfare_1;
+    temquery.of_Days_Board_1__c = of_Days_Board_1;
+    temquery.of_Days_Conference_1__c = of_Days_Conference_1;
+    temquery.of_Days_Ground_1__c = of_Days_Ground_1;
+    temquery.of_Days_Meals_1__c = of_Days_Meals_1;
+    temquery.of_Days_Miscellaneous_1__c = of_Days_Miscellaneous_1;
+    temquery.of_Days_Representation_1__c = of_Days_Representation_1;
+    //Section Two Fields
+    temquery.Airfare_Description_2__c = Airfare_Description_2;
+    temquery.Ground_Transportation_Description_2__c = Ground_Transportation_Description_2;
+    temquery.Conference_Registration_Description_2__c = Conference_Registration_Description_2;
+    temquery.Board_and_Lodging_Description_2__c = Board_and_Lodging_Description_2;
+    temquery.Meals_and_Tips_Description_2__c = Meals_and_Tips_Description_2;
+    temquery.Representation_Description_2__c = Representation_Description_2;
+    temquery.Miscellaneous_Description_2__c = Miscellaneous_Description_2;
+    temquery.Airfare_DE_P_2__c = Airfare_DE_P_2;
+    temquery.Ground_Transportation_DE_P_2__c = Ground_Transportation_DE_P_2;
+    temquery.Conference_Registration_Fees_DE_P_2__c = Conference_Registration_Fees_DE_P_2;
+    temquery.Board_and_Lodging_DE_P_2__c = Board_and_Lodging_DE_P_2;
+    temquery.Meals_and_Tips_DE_P_2__c = Meals_and_Tips_DE_P_2;
+    temquery.Representation_DE_P_2__c = Representation_DE_P_2;
+    temquery.Miscellaneous_DE_P_2__c = Miscellaneous_DE_P_2;
+    temquery.Airfare_DE_S_2__c = Airfare_DE_S_2;
+    temquery.Ground_Transportation_DE_S_2__c = Ground_Transportation_DE_S_2;
+    temquery.Conference_Registration_Fees_DE_S_2__c = Conference_Registration_Fees_DE_S_2;
+    temquery.Board_and_Lodging_DE_S_2__c = Board_and_Lodging_DE_S_2;
+    temquery.Meals_and_Tips_DE_S_2__c = Meals_and_Tips_DE_S_2;
+    temquery.Representation_DE_S_2__c = Representation_DE_S_2;
+    temquery.Miscellaneous_DE_S_2__c = Miscellaneous_DE_S_2;
+    temquery.of_Days_Airfare_2__c = of_Days_Airfare_2;
+    temquery.of_Days_Board_2__c = of_Days_Board_2;
+    temquery.of_Days_Conference_2__c = of_Days_Conference_2;
+    temquery.of_Days_Ground_2__c = of_Days_Ground_2;
+    temquery.of_Days_Meals_2__c = of_Days_Meals_2;
+    temquery.of_Days_Miscellaneous_2__c = of_Days_Miscellaneous_2;
+    temquery.of_Days_Representation_2__c = of_Days_Representation_2;
+    temquery.New_Flag__c = TRUE;
+    update temquery;
+    
+    return new PageReference('javascript:window.close()');
+    
+    }
+}

@@ -1,0 +1,24 @@
+trigger TravelExpenseManagementTrigger on Travel_and_Expense_Management__c (after update) {
+    
+    Id id1 = UserInfo.getProfileId();
+    System.debug('******************Profile ID' +id1);
+    Profile profileName = [Select Name from Profile where Id =: id1];
+    
+    if(profilename.Name != 'EVP/President') {
+        for(Travel_and_Expense_Management__c taem : trigger.new) {
+            if (taem.Approval_Stage__c != null && taem.Approval_Stage__c != '' && taem.Approval_Stage__c != 'VP Approved' ) {
+                if(taem.Approval_Stage__c == 'First: Approved' || taem.Approval_Stage__c == 'First: Rejected' || taem.Approval_Stage__c == 'Second: Approved' || taem.Approval_Stage__c == 'Second: Rejected') {
+                    Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();  
+                    req.setObjectId(taem.Id);
+                    Approval.ProcessResult result = Approval.process(req);
+                }
+            }
+            
+            if(taem.Approval_Stage__c == null || taem.Approval_Stage__c == '' || taem.Approval_Stage__c == 'VP Approved' ) {
+                system.debug('Approval Stage: ' + taem.Approval_Stage__c);
+                //Do Nothing
+                break;
+            }
+        }    
+    }
+}

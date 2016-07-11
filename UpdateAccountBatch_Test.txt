@@ -1,0 +1,65 @@
+@isTest
+private class testUpdateAccountBatch {
+
+    static testmethod void UpdateAccountBatchTest() {
+        
+        List<Account> acclist = new List<Account>();
+        
+        Account newacc1 = new Account();
+        newacc1.Name = 'Test Name A';
+        newacc1.Industry = 'Energy';
+        newacc1.Category__c = 'A';
+        //newacc1.Accreditation_Date__c = date.today();
+        newacc1.Accreditation_Date__c = date.valueof('2012-07-23');
+        newacc1.Accreditation_Expiration__c = '3 Years';
+        acclist.add(newacc1);
+        
+        Account newacc2 = new Account();
+        newacc2.Name = 'Test Name B';
+        newacc2.Industry = 'Energy';
+        newacc2.Category__c = 'A';
+        //newacc2.Accreditation_Date__c = date.today();
+        newacc2.Accreditation_Date__c = date.valueof('2015-01-23');
+        newacc2.Accreditation_Expiration__c = '6 Months';
+        acclist.add(newacc2);
+        
+        Account newacc3 = new Account();
+        newacc3.Name = 'Test Name C';
+        newacc3.Industry = 'Energy';
+        newacc3.Category__c = 'A';
+        //newacc3.Accreditation_Date__c = date.today();
+        newacc3.Accreditation_Date__c = date.valueof('2014-07-23');
+        newacc3.Accreditation_Expiration__c = '1 Year';
+        acclist.add(newacc3);
+        
+        Account newacc4 = new Account();
+        newacc4.Name = 'Test Name D';
+        newacc4.Industry = 'Energy';
+        newacc4.Category__c = 'A';
+        //newacc4.Accreditation_Date__c = date.today();
+        newacc4.Accreditation_Date__c = date.valueof('2013-07-23');
+        newacc4.Accreditation_Expiration__c = '2 Years';
+        acclist.add(newacc4);
+        
+        Account newacc5 = new Account();
+        newacc5.Name = 'Test Name D';
+        newacc5.Industry = 'Energy';
+        newacc5.Category__c = 'A';
+        newacc5.Accreditation_Date__c = date.today();
+        newacc5.Accreditation_Expiration__c = '2 Years';
+        acclist.add(newacc5);
+        
+        insert acclist;
+        
+        Expiration_Email__c exp = new Expiration_Email__c();
+        exp.Email__c = 'test@test.com';
+        exp.Name = 'Test';
+        insert exp;
+        
+        Test.startTest();
+        UpdateAccountBatch c = new UpdateAccountBatch();
+        Database.executeBatch(c);
+        Test.stopTest();
+
+    }
+}

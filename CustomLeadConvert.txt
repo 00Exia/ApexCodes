@@ -1,0 +1,124 @@
+/**************
+Author: Third Pillar Technical Consultant
+Logic: 
+Date: 5/19/2015
+**************/
+
+public class CustomLeadConvert {
+    
+    Public Id LeadId {get;set;}
+    Public Boolean opp{get;set;}
+    Public Boolean task{get;set;}
+    Public String oppname{get;set;}
+    Public Lead__c LeadRecord {get;set;}
+    Public ID Accountid {get;set;}
+    Public ID Contactid {get;set;}
+    private final Lead__c lead;
+    
+    ApexPages.standardController m_sc = null;
+
+    public CustomLeadConvert(ApexPages.StandardController controller) {
+        LeadId = controller.getRecord().Id;
+        LeadRecord =(Lead__c) controller.getRecord();
+        m_sc = controller;
+    }
+    
+    public PageReference CustomLeadConvert() {
+        return null;
+    }
+    
+    public PageReference cancel() {
+            return m_sc.cancel();
+    }
+    
+    public PageReference autoRun() {
+ 
+        String theId = ApexPages.currentPage().getParameters().get('id');
+        Lead__c leadquery = new Lead__c(); 
+        
+        if (theId != null) {
+            leadquery = (Lead__c) Utility.getObject('Lead__c', theId);
+            
+        }
+        
+        Account newacc = new Account();
+        newacc.BillingStreet = leadquery.Street__c;
+        newacc.BillingCity = leadquery.Municipality__c;
+        newacc.BillingState = leadquery.City_Province__c;
+        newacc.BillingPostalCode = leadquery.Zip_Code__c;
+        newacc.BillingCountry = leadquery.Country__c;
+        newacc.Name = leadquery.Name;
+        newacc.Company_Type__c = leadquery.Company_Type__c;
+        newacc.Description = leadquery.Description__c;
+        //newacc.OwnerId = leadquery.OwnerId;
+        newacc.Phone = leadquery.Phone__c;
+        newacc.Fax = leadquery.Fax__c;
+        //newacc. = leadquery.Email_Address__c;
+        newacc.NumberOfEmployees = integer.valueof(leadquery.Number_of_Employees__c);
+        newacc.AccountSource = leadquery.Lead_Source__c;
+        newacc.Rating = leadquery.Rating__c;
+        newacc.Product_Interest__c = leadquery.Product_Interest__c;
+        newacc.Invested_Capital__c = leadquery.Invested_Capital__c;
+        newacc.Category__c = leadquery.Category__c;
+        newacc.Other_Industry_Specify__c = leadquery.Other_Industry_Specify__c;
+        newacc.Industry = leadquery.Industry__c;
+        
+        insert newacc;       
+        Accountid = newacc.id;
+        
+        Contact newcon = new Contact();
+        newcon.MailingStreet = leadquery.Street__c;
+        newcon.MailingCity = leadquery.Municipality__c;
+        newcon.MailingState = leadquery.City_Province__c;
+        newcon.MailingPostalCode = leadquery.Zip_Code__c;
+        newcon.MailingCountry = leadquery.Country__c;
+        newcon.FirstName = leadquery.First_Name__c;
+        //newcon.MiddleName = leadquery.Middle_Name__c;
+        newcon.LastName = leadquery.Last_Name__c;
+        newcon.Accountid = newacc.id;
+        newcon.Birthday__c = leadquery.Birthday__c;
+        newcon.DoNotCall = leadquery.Do_not_Call__c;
+        newcon.Do_not_call_comments__c = leadquery.Do_not_call_comments__c;
+        newcon.MobilePhone = leadquery.Personal_Mobile__c;
+        newcon.Company_Phone__c = leadquery.Company_Mobile__c;
+        newcon.Salutation = leadquery.Salutation__c;
+        newcon.Gender__c = leadquery.Gender__c;
+        newcon.Title = leadquery.Title__c;
+        newcon.Department = leadquery.Department__c;
+        newcon.Spouse_Name__c = leadquery.Spouse_Name__c;
+        newcon.Spouse_Birthday__c = leadquery.Spouse_Birthday__c;
+        newcon.Anniversary_Date__c = leadquery.Anniversary_Date__c;
+        newcon.Anniversary_Date__c = leadquery.Anniversary_Date__c;
+        newcon.Trunk_Extension__c = leadquery.Trunk_Extension__c;
+        newcon.Direct_line__c = leadquery.Direct_line__c;
+        newcon.Fax = leadquery.Fax__c;
+        newcon.Email = leadquery.Email_Address__c;
+        
+        insert newcon;
+        Contactid = newcon.id;
+        
+        if(opp == TRUE) {
+            Opportunities__c newopp = new Opportunities__c();
+            newopp.Name = oppname;
+            newopp.Company_Name__c = newacc.id;
+            update leadquery;
+                        
+            insert newopp;
+        }
+        
+        if(task == TRUE) {
+            Task newtask = new Task();
+            newtask.WhoID = newcon.id;
+            newtask.Subject = LeadRecord.Subject__c;
+            newtask.IsReminderSet = false;
+            
+            insert newtask;
+        }
+        
+        delete leadquery;
+        
+        PageReference np = new PageReference('/home/home.jsp');
+        np.setRedirect(true);
+        return np;
+    }
+}

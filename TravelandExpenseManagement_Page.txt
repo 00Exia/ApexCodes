@@ -1,0 +1,289 @@
+<apex:page standardController="Travel_and_Expense_Management__c" extensions="inlinecontroller" showHeader="FALSE" Sidebar="FALSE">
+
+<style type="text/css">
+table.hovertable {
+    position: relative;
+    left: 7%;
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+    height:1000px;
+    overflow:scroll;
+}
+table.hovertable th {
+    background-color:#c3dde0;
+    border-width: 1px;
+    padding: 4px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+table.hovertable tr {
+    background-color:#d4e3e5;
+}
+table.hovertable td {
+    border-width: 1px;
+    padding: 3px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+table.hovertable td.firstcol {
+    font-weight: bold;
+}
+table.hovertable td.allspan {
+    font-weight: bold;
+    padding: 5px;
+}
+#button {
+    position:absolute; 
+    margin-left:-100px;
+    left:50%;
+}
+</style>
+
+
+<!-- SECTION ONE -->
+<apex:form >
+<table class="hovertable" style='height:100%'>
+<tr>
+    <th>Type of Expense</th><th>Description of Expense</th><th>Daily Expenses(₱)</th><th>Daily Expenses($)</th><th># of Days</th>
+</tr> 
+    <td class="allspan" colspan = "7">CASH ADVANCE SUBJECT TO LIQUIDATION</td>
+
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Airfare</td>
+    <td>
+        <apex:inputText value="{!Airfare_Description_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Airfare_DE_P_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Airfare_DE_S_1}"/>        
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Airfare_1}"/>
+    </td>
+    
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Ground Transportation</td>
+    <td>
+        <apex:inputText value="{!Ground_Transportation_Description_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Ground_Transportation_DE_P_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Ground_Transportation_DE_S_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Ground_1}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Conference/Registration Fees</td>
+    <td>
+        <apex:inputText value="{!Conference_Registration_Description_1}"/>     
+    </td>
+    <td>
+        <apex:inputText value="{!Conference_Registration_Fees_DE_P_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Conference_Registration_Fees_DE_S_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Conference_1}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Board and Lodging</td>
+    <td>
+        <apex:inputText value="{!Board_and_Lodging_Description_1}"/>    
+    </td>
+    <td>
+        <apex:inputText value="{!Board_and_Lodging_DE_P_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Board_and_Lodging_DE_S_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Board_1}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Meals and Tips</td>
+    <td>
+       <apex:inputText value="{!Meals_and_Tips_Description_1}"/>    
+    </td>
+    <td>
+        <apex:inputText value="{!Meals_and_Tips_DE_P_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Meals_and_Tips_DE_S_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Meals_1}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Representation</td>
+    <td>
+        <apex:inputText value="{!Representation_Description_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Representation_DE_P_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Representation_DE_S_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Representation_1}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Miscellaneous</td>
+    <td>
+        <apex:inputText value="{!Miscellaneous_Description_1}"/>    
+    </td>
+    <td>
+        <apex:inputText value="{!Miscellaneous_DE_P_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Miscellaneous_DE_S_1}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Miscellaneous_1}"/>
+    </td>
+
+</tr>
+
+<!--SECTION TWO-->
+
+<td class="allspan" colspan = "7">COMPANY TO PAY DIRECTLY TO SUPPLIERS</td>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Airfare</td>
+    <td>
+        <apex:inputText value="{!Airfare_Description_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Airfare_DE_P_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Airfare_DE_S_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Airfare_2}"/>
+    </td>
+    
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Ground Transportation</td>
+    <td>
+        <apex:inputText value="{!Ground_Transportation_Description_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Ground_Transportation_DE_P_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Ground_Transportation_DE_S_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Ground_2}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Conference/Registration Fees</td>
+    <td>
+        <apex:inputText value="{!Conference_Registration_Description_2}"/>     
+    </td>
+    <td>
+        <apex:inputText value="{!Conference_Registration_Fees_DE_P_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Conference_Registration_Fees_DE_S_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Conference_2}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Board and Lodging</td>
+    <td>
+        <apex:inputText value="{!Board_and_Lodging_Description_2}"/>    
+    </td>
+    <td>
+        <apex:inputText value="{!Board_and_Lodging_DE_P_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Board_and_Lodging_DE_S_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Board_2}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Meals and Tips</td>
+    <td>
+       <apex:inputText value="{!Meals_and_Tips_Description_2}"/>    
+    </td>
+    <td>
+        <apex:inputText value="{!Meals_and_Tips_DE_P_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Meals_and_Tips_DE_S_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Meals_2}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Representation</td>
+    <td>
+        <apex:inputText value="{!Representation_Description_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Representation_DE_P_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Representation_DE_S_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Representation_2}"/>
+    </td>
+
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td class="firstcol">Miscellaneous</td>
+    <td>
+        <apex:inputText value="{!Miscellaneous_Description_2}"/>    
+    </td>
+    <td>
+        <apex:inputText value="{!Miscellaneous_DE_P_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!Miscellaneous_DE_S_2}"/>
+    </td>
+    <td>
+        <apex:inputText value="{!of_Days_Miscellaneous_2}"/>
+    </td>
+
+</tr>
+
+</table>
+<div id="button">
+<apex:commandButton value="Submit" action="{!getPassMethod}" />
+</div>
+</apex:form>
+</apex:page>
